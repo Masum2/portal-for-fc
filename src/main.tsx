@@ -8,3 +8,4 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+    //"Local": "data source=tcp:beraten.database.windows.net, 1433;initial catalog=RedLakeDb;User ID=Wesam; Password=Othman**!@#;",

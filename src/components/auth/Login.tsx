@@ -45,7 +45,7 @@ backgroundImage: `url('https://images.unsplash.com/photo-1511895426328-dc8714191
       </div>
 
       {/* Glass Card */}
-      <div className="relative z-10 w-full max-w-6xl mx-4">
+      <div className="relative z-10 w-full max-w-6xl mx-4 ">
         <div className="grid grid-cols-1 lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           
           {/* Left Side - Branding */}
@@ -173,7 +173,7 @@ backgroundImage: `url('https://images.unsplash.com/photo-1511895426328-dc8714191
                   className={`w-full py-3.5 rounded-xl text-white font-medium transition-all ${
                     isLoading 
                       ? 'bg-blue-500/50 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98]'
+                      : 'bg-gradient-to-r from-[#ff6400] to-[#ff8c00] hover:from-[#e65a00] hover:to-[#cc4e00] shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98]'
                   }`}
                 >
                   {isLoading ? (

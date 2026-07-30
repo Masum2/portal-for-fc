@@ -59,14 +59,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-[280px]">
-        {/* Header */}
-        <div className=" pb-0">
+        {/* Header - Fixed Height */}
+        <div className="flex-shrink-0">
           <Header pageTitle={pageInfo.title} pageSubtitle={pageInfo.subtitle} />
         </div>
 
-        {/* Content */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
+        {/* Content - Scrollable */}
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

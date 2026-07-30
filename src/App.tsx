@@ -6,9 +6,7 @@ import Login from './components/auth/Login';
 import Layout from './components/layout/Layout';
 import Dashboard from './components/dashboard/Dashboard';
 import NewApplication from './components/application/NewApplication';
-import RenewalApplication from './components/application/RenewalApplication';
-import Notes from './components/notes/Notes';
-import { dummyApplications } from './data/dummyData';
+
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -46,17 +44,8 @@ const App: React.FC = () => {
                     
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/apply/new" element={<NewApplication />} />
-                    <Route path="/apply/renew" element={<RenewalApplication />} />
-                    <Route 
-                      path="/notes/:applicationId" 
-                      element={
-                        <Notes
-                          notes={dummyApplications[0].notes}
-                          applicationId="APP-001"
-                          onAddNote={(msg) => console.log('New note:', msg)}
-                        />
-                      } 
-                    />
+                  
+                   
                     
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
                   </Routes>

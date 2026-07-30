@@ -8,13 +8,12 @@ interface MenuItem {
   label: string;
   icon: React.ReactNode;
   path: string;
-  badge?: number;
 }
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems: MenuItem[] = [
@@ -30,7 +29,7 @@ const Sidebar: React.FC = () => {
     },
     {
       id: 'new-license',
-      label: 'New License',
+      label: 'Apply New License',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -38,160 +37,85 @@ const Sidebar: React.FC = () => {
       ),
       path: '/apply/new'
     },
-    // {
-    //   id: 'renew-license',
-    //   label: 'Renew License',
-    //   icon: (
-    //     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-    //     </svg>
-    //   ),
-    //   path: '/apply/renew'
-    // },
-    // {
-    //   id: 'notes',
-    //   label: 'Messages',
-    //   icon: (
-    //     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-    //     </svg>
-    //   ),
-    //   path: '/notes/APP-001',
-    //   badge: 3
-    // },
-    // {
-    //   id: 'documents',
-    //   label: 'Documents',
-    //   icon: (
-    //     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    //     </svg>
-    //   ),
-    //   path: '/documents'
-    // }
+    {
+      id: 'documents',
+      label: 'Documents',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      ),
+      path: '/documents'
+    },
+    {
+      id: 'profile',
+      label: 'Profile',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      path: '/profile'
+    }
   ];
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login', { replace: true });
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
-      {/* Mobile Overlay */}
-      <div 
-        className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ${
-          !isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-        onClick={() => setIsCollapsed(true)}
-      />
+      <div className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity ${!isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onClick={() => setIsCollapsed(true)} />
 
-      {/* Sidebar */}
-      <aside 
-        className={`fixed top-0 left-0 h-full bg-white shadow-2xl z-50 transition-all duration-300 flex flex-col ${
-          isCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'
-        }`}
-        style={{ width: '280px' }}
-      >
-        {/* Brand Logo */}
-        <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-800 leading-tight">FosterCare</h1>
-              <p className="text-xs text-gray-500">Management Portal</p>
-            </div>
+      {/* ইমেজ অনুযায়ী ডার্ক ব্যাকগ্রাউন্ড (bg-[#1e1e1e]) */}
+      <aside className={`fixed top-0 left-0 h-full bg-[#1e1e1e] shadow-2xl z-50 transition-all duration-300 flex flex-col ${isCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}`} style={{ width: '280px' }}>
+        
+        {/* Brand Logo - উপরের অংশ */}
+        <div className="flex items-center space-x-3 px-6 py-6 border-b border-gray-800">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f58220] to-[#b33939] flex items-center justify-center shadow-md">
+            <span className="text-white font-black text-lg">B</span>
           </div>
-          
-          {/* Mobile Close Button */}
-          <button 
-            className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition"
-            onClick={() => setIsCollapsed(true)}
-          >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div>
+            <h1 className="text-base font-bold text-white tracking-wide">FosterCare Portal</h1>
+          </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto px-4 py-6">
-          <div className="space-y-1">
-            {menuItems.map((item) => (
+        {/* Navigation - ইমেজ এর মতো একটিভ আইটেমে বাঁ পাশে কমলা বর্ডার বা ব্যাকগ্রাউন্ড */}
+        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-2">
+          {menuItems.map((item) => {
+            const active = isActive(item.path);
+            return (
               <button
                 key={item.id}
-                onClick={() => {
-                  navigate(item.path);
-                  setIsCollapsed(true);
-                }}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
-                  isActive(item.path)
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/25'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                onClick={() => { navigate(item.path); setIsCollapsed(true); }}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all relative ${
+                  active 
+                    ? 'text-[#f58220] font-semibold bg-white/5' 
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <span className={`${isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-gray-600'}`}>
-                  {item.icon}
-                </span>
-                <span className="flex-1 text-left font-medium text-sm">{item.label}</span>
-                {item.badge && (
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                    isActive(item.path)
-                      ? 'bg-white/20 text-white'
-                      : 'bg-red-500 text-white'
-                  }`}>
-                    {item.badge}
-                  </span>
+                {active && (
+                  <div className="absolute left-0 top-2 bottom-2 w-1 bg-[#f58220] rounded-r-full"></div>
                 )}
+                <span className={active ? 'text-[#f58220]' : 'text-gray-400'}>{item.icon}</span>
+                <span className="text-sm">{item.label}</span>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </nav>
 
-        {/* User Profile */}
-        <div className="border-t border-gray-100 p-4">
-          <div className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">
-              {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-800 truncate">
-                {user?.firstName} {user?.lastName}
-              </p>
-              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-            </div>
-          </div>
-
-          {/* Logout Button */}
+        {/* Logout Button */}
+        <div className="p-4 border-t border-gray-800">
           <button
-            onClick={handleLogout}
-            className="w-full mt-3 flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-all duration-200 text-sm font-medium"
+            onClick={() => logout()}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all text-sm font-medium"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
             <span>Logout</span>
           </button>
         </div>
       </aside>
-
-      {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsCollapsed(false)}
-        className="lg:hidden fixed bottom-6 right-6 z-40 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-full shadow-2xl shadow-blue-600/40 hover:shadow-blue-600/60 transition-all"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
     </>
   );
 };

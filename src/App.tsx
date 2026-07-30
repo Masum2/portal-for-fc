@@ -6,6 +6,8 @@ import Login from './components/auth/Login';
 import Layout from './components/layout/Layout';
 import Dashboard from './components/dashboard/Dashboard';
 import NewApplication from './components/application/NewApplication';
+import { HistoricalUpdate } from './components/dashboard/HistoricalUpdate';
+import HistoricalDelete from './components/dashboard/HistoricalDelete';
 
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -44,10 +46,10 @@ const App: React.FC = () => {
                     
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/apply/new" element={<NewApplication />} />
-                  
-                   
-                    
+                     <Route path="/historical-update" element={<HistoricalUpdate />} />
+                    <Route path="/historical-delete" element={<HistoricalDelete />} />
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
+               
                   </Routes>
                 </Layout>
               </ProtectedRoute>
